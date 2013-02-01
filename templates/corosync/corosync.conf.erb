@@ -9,7 +9,7 @@ totem {
     ringnumber:  0
     bindnetaddr: <%= bindnetaddr %>
 <% if communication_mode == 'multicast' -%>
-    mcastaddr:   <%= mcastaddr %>239.255.1.1
+    mcastaddr:   <%= mcastaddr %>
 <% elsif communication_mode == 'broadcast' -%>
     broadcast:   yes
     # used for broadcast port too

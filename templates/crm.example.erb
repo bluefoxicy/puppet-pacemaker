@@ -1,5 +1,5 @@
 <% crm_hash['nodes'].each do |value| -%>
-node <%= value -%>.clusterlabs.org
+node <%= value %>
 <% end -%>
 <% crm_hash['ip_resource'].each do |key,value| -%>
 primitive <%= key -%> ocf:heartbeat:IPaddr2 \

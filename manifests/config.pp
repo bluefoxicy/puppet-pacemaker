@@ -5,4 +5,5 @@
 #
 class pacemaker::config {
   include pacemaker::config::corosync
+  include pacemaker::config::crm
 }

@@ -17,7 +17,7 @@ class pacemaker::install::debian {
   $pacemaker_packages =
     [
       "pacemaker",
-      "resounce-agents",
+      "resource-agents",
     ]
   $corosync_packages  = "corosync"
 }
