@@ -32,12 +32,22 @@
 #
 # $totem_threads
 #   Multi-thread when using secauth rather than waiting for encryption.
+#
+# $crm_script
+#   Path to a template file to use as a script passed to crm before anything
+#   else is run.
+#
+# $crm_hash
+#   Optional.  Data for the template.
 class pacemaker(
+  $bindnetaddr,
   $communication_mode  = $pacemaker::params::communication_mode,
   $mcastaddr           = $pacemaker::params::mcastaddr
   $port                = $pacemaker::params::mcastport,
   $secauth             = $pacemaker::params::secauth,
   $totem_threads       = $pacemaker::params::threads,
+  $crm_script          = $pacemaker::params::crm_script,
+  $crm_hash            = $pacemaker::params::crm_hash,
 ) inherits pacemaker::params {
 
 #  if ( ! $authkey ) {

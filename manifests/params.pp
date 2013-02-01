@@ -7,8 +7,8 @@ class pacemaker::params(
   $port                = '5405',
   $secauth             = 'on',
   $totem_threads       = '2',
-  $totem_ttl           = '1',
-  $interface           = 'eth0',
+  $crm_script          = undef,
+  $crm_hash            = undef,
 ) {
 
 }

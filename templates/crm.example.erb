@@ -1,0 +1,34 @@
+### File managed with puppet ###
+### Served by:        '<%= scope.lookupvar('::servername') %>'
+### Module:           '<%= scope.to_hash['module_name'] %>'
+
+# Example configuration template for which a $crm_hash can come from i.e.
+# hiera.
+#
+# Puppet passes $crm_hash of: 
+# $crm_hash =
+#   {
+#     ip_resource =>
+#       {
+#         ClusterIP0 => { address => '10.0.50.100', interval => '30s' },
+#         ClusterIP1 => { address => '10.0.50.101', interval => '30s' },
+#       },
+#     stickiness  => '100',
+#     quorum      => '0',
+#   }
+<% crm_hash['ip_resource'].each do |key,value| -%>
+crm configure primitive <%= key  -%> ocf:heartbeat:IPaddr2 \
+  params ip=<%= value['address'] -%> cidr_netmask=32 \
+  op monitor interval=<%= value['interval'] %>
+
+<% end -%>
+<% if crm_hash['quorum'] == '0' -%>
+# Disable quorum
+crm configure property no-quorum-policy=ignore
+
+<% end -%>
+<% if crm_hash['stickiness'] != '' -%>
+# Default stickiness
+crm configure rsc_defaults resource-stickiness=<%= crm_hash['stickiness'] %>
+
+<% end -%>
