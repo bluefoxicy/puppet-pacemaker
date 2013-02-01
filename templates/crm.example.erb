@@ -1,3 +1,4 @@
+#!/bin/env crm
 ### File managed with puppet ###
 ### Served by:        '<%= scope.lookupvar('::servername') %>'
 ### Module:           '<%= scope.to_hash['module_name'] %>'
@@ -17,18 +18,18 @@
 #     quorum      => '0',
 #   }
 <% crm_hash['ip_resource'].each do |key,value| -%>
-crm configure primitive <%= key  -%> ocf:heartbeat:IPaddr2 \
+configure primitive <%= key  -%> ocf:heartbeat:IPaddr2 \
   params ip=<%= value['address'] -%> cidr_netmask=32 \
   op monitor interval=<%= value['interval'] %>
 
 <% end -%>
 <% if crm_hash['quorum'] == '0' -%>
 # Disable quorum
-crm configure property no-quorum-policy=ignore
+configure property no-quorum-policy=ignore
 
 <% end -%>
 <% if crm_hash['stickiness'] != '' -%>
 # Default stickiness
-crm configure rsc_defaults resource-stickiness=<%= crm_hash['stickiness'] %>
+configure rsc_defaults resource-stickiness=<%= crm_hash['stickiness'] %>
 
 <% end -%>
