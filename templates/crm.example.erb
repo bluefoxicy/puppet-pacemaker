@@ -1,35 +1,20 @@
-#!/bin/env crm
-### File managed with puppet ###
-### Served by:        '<%= scope.lookupvar('::servername') %>'
-### Module:           '<%= scope.to_hash['module_name'] %>'
-
-# Example configuration template for which a $crm_hash can come from i.e.
-# hiera.
-#
-# Puppet passes $crm_hash of: 
-# $crm_hash =
-#   {
-#     ip_resource =>
-#       {
-#         ClusterIP0 => { address => '10.0.50.100', interval => '30s' },
-#         ClusterIP1 => { address => '10.0.50.101', interval => '30s' },
-#       },
-#     stickiness  => '100',
-#     quorum      => '0',
-#   }
-<% crm_hash['ip_resource'].each do |key,value| -%>
-configure primitive <%= key  -%> ocf:heartbeat:IPaddr2 \
-  params ip=<%= value['address'] -%> cidr_netmask=32 \
-  op monitor interval=<%= value['interval'] %>
-
+<% crm_hash['nodes'].each do |value| -%>
+node <%= value -%>.clusterlabs.org
 <% end -%>
+<% crm_hash['ip_resource'].each do |key,value| -%>
+primitive <%= key -%> ocf:heartbeat:IPaddr2 \
+	params ip="<%= value['address'] -%>" cidr_netmask="32" \
+	op monitor interval="<%= value['interval'] -%>"
+<% end -%>
+property $id="cib-bootstrap-options" \
+	dc-version="1.1.7-6.el6-148fccfd5985c5590cc601123c6c16e966b85d14" \
+	cluster-infrastructure="openais" \
+	expected-quorum-votes="2" \
+	stonith-enabled="false" \
 <% if crm_hash['quorum'] == '0' -%>
-# Disable quorum
-configure property no-quorum-policy=ignore
-
+	no-quorum-policy="ignore"
 <% end -%>
 <% if crm_hash['stickiness'] != '' -%>
-# Default stickiness
-configure rsc_defaults resource-stickiness=<%= crm_hash['stickiness'] %>
-
+rsc_defaults $id="rsc-options" \
+	resource-stickiness="<%= crm_hash['stickiness'] -%>"
 <% end -%>
