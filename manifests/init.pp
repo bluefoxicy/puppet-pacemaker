@@ -41,6 +41,7 @@
 #   Optional.  Data for the template.
 class pacemaker(
   $bindnetaddr,
+  $authkey             = undef,
   $communication_mode  = $pacemaker::params::communication_mode,
   $mcastaddr           = $pacemaker::params::mcastaddr
   $port                = $pacemaker::params::mcastport,
@@ -48,24 +49,18 @@ class pacemaker(
   $totem_threads       = $pacemaker::params::threads,
   $crm_config          = $pacemaker::params::crm_config,
   $crm_hash            = $pacemaker::params::crm_hash,
+  $corosync_template   = $pacemaker::params::corosync_template,
 ) inherits pacemaker::params {
 
-#  if ( ! $authkey ) {
-#    fail('Mandatory variable $authkey not set')
-#  }
+  if ( $secauth == 'on' && ! $authkey ) {
+    fail('Mandatory variable $authkey not set')
+  }
 
   include pacemaker::install
   include pacemaker::config
   include pacemaker::service
 
-  service { 'corosync':
-    ensure    => running,
-    hasstatus => true,
-    enable    => true,
-    require   => Package['corosync'],
-  }
-
- Class['pacemaker::install'] ->
- Class['pacemaker::config']  ->
- Class['pacemaker::service']
+  Class['pacemaker::install'] ->
+  Class['pacemaker::config']  ->
+  Class['pacemaker::service']
 }

@@ -26,16 +26,11 @@ class pacemaker::install {
 
   @package { $corosync_packages:
     ensure => present,
-    tag    =>
-      [
-        'heartbeat',
-        'corosync',
-      ]
+    tag    => 'corosync',
   }
 
   @package { $pacemaker_packages:
     ensure  => present,
-    require => Package <| tag == 'heartbeat' |>,
     tag     => 'pacemaker'
   }
 
