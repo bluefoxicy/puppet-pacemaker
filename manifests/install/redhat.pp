@@ -16,9 +16,9 @@ class pacemaker::install::redhat {
 
   $pacemaker_packages =
     [
-      "pacemaker.${architecture}",
-      "resounce-agents.${architecture}",
+      "pacemaker",
+      "resounce-agents",
     ]
-  $corosync_packages  = "corosync.${architecture}"
+  $corosync_packages  = "corosync"
 
 }

@@ -9,7 +9,7 @@ class pacemaker::params(
   $totem_threads       = '2',
   $crm_config          = undef,
   $crm_hash            = undef,
-  $corosync_template   = 'templates/corosync/corosync.conf.erb'
+  $corosync_template   = 'pacemaker/corosync/corosync.conf.erb'
 ) {
 
 }

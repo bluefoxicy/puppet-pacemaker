@@ -9,14 +9,14 @@ class pacemaker::install {
   case $osfamily {
     'RedHat': {
       include pacemaker::install::redhat
-      $pacemaker_packages = $pacemaker::install::redhat::pacemaker_package
-      $corosync_packages  = $pacemaker::install::redhat::corosync_package
+      $pacemaker_packages = $pacemaker::install::redhat::pacemaker_packages
+      $corosync_packages  = $pacemaker::install::redhat::corosync_packages
     }
 
     'Debian': {
       include pacemaker::install::debian
-      $pacemaker_packages = $pacemaker::install::debian::pacemaker_package
-      $corosync_packages  = $pacemaker::install::debian::corosync_package
+      $pacemaker_packages = $pacemaker::install::debian::pacemaker_packages
+      $corosync_packages  = $pacemaker::install::debian::corosync_packages
     }
 
     default: {
@@ -24,12 +24,12 @@ class pacemaker::install {
     }
   }
 
-  @package { $corosync_packages:
+  package { $corosync_packages:
     ensure => present,
     tag    => 'corosync',
   }
 
-  @package { $pacemaker_packages:
+  package { $pacemaker_packages:
     ensure  => present,
     tag     => 'pacemaker'
   }

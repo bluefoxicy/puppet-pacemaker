@@ -43,8 +43,8 @@ class pacemaker(
   $bindnetaddr,
   $authkey             = undef,
   $communication_mode  = $pacemaker::params::communication_mode,
-  $mcastaddr           = $pacemaker::params::mcastaddr
-  $port                = $pacemaker::params::mcastport,
+  $mcastaddr           = $pacemaker::params::mcastaddr,
+  $port                = $pacemaker::params::port,
   $secauth             = $pacemaker::params::secauth,
   $totem_threads       = $pacemaker::params::threads,
   $crm_config          = $pacemaker::params::crm_config,
@@ -52,7 +52,7 @@ class pacemaker(
   $corosync_template   = $pacemaker::params::corosync_template,
 ) inherits pacemaker::params {
 
-  if ( $secauth == 'on' && ! $authkey ) {
+  if ( $secauth == 'on' and ! $authkey ) {
     fail('Mandatory variable $authkey not set')
   }
 
