@@ -72,6 +72,22 @@ $crm_hash =
   }
 ```
 
+Or in hiera:
+
+```yaml
+---
+crm_hash:
+  nodes:
+    - pcmk-1
+    - pcmk-2
+  ip_resource:
+    ClusterIP0:
+      address:  '10.0.50.100'
+      interval: '30s'
+  stickiness:  '100'
+  quorum:      '0'
+```
+
 Running this against the supplied template would produce the same output as
 from crm.  The module dumps the crm configuration and checks it to test.
 
