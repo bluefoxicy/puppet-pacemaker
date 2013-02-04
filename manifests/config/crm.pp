@@ -22,7 +22,7 @@ class pacemaker::config::crm {
   }
 
   exec { 'load crm config':
-    command     => 'crm configure load /etc/corosync/config.crm',
+    command     => 'crm configure load replace /etc/corosync/config.crm',
     path        => '/bin:/sbin:/usr/bin:/usr/sbin',
     refreshonly => true,
     tag         => 'post-crm',
