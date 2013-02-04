@@ -60,8 +60,8 @@ $crm_hash =
   {
     nodes =>
       [
-        'pcmk-1',
-        'pcmk-2',
+        'pcmk-1.clusterlabs.org',
+        'pcmk-2.clusterlabs.org',
       ],
     ip_resource =>
       {
@@ -70,6 +70,22 @@ $crm_hash =
     stickiness  => '100',
     quorum      => '0',
   }
+```
+
+Or in hiera:
+
+```yaml
+---
+crm_hash:
+  nodes:
+    - pcmk-1.clusterlabs.org
+    - pcmk-2.clusterlabs.org
+  ip_resource:
+    ClusterIP0:
+      address:  '10.0.50.100'
+      interval: '30s'
+  stickiness:  '100'
+  quorum:      '0'
 ```
 
 Running this against the supplied template would produce the same output as
