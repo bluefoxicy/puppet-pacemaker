@@ -3,11 +3,13 @@
 #
 # Installs a repo if necessary
 class pacemaker::install::redhat::el {
+  $osmajrelease = regsubst($operatingsystemrelease, '^(\d+)\..*', '\1')
+
   # For RH5 there is no Corosync/Pacemaker in EPEL
-  if ( $lsbmajdistrelease in [ '4', '5'] ) {
+  if ( $osmajrelease in [ '4', '5'] ) {
     yumrepo { 'clusterlabs':
-      descr => "High Availability/Clustering server technologies (RHEL_${lsbmajdistrelease})",
-      baseurl => "http://www.clusterlabs.org/rpm/epel-${lsbmajdistrelease}/",
+      descr => "High Availability/Clustering server technologies (RHEL_${osmajrelease})",
+      baseurl => "http://www.clusterlabs.org/rpm/epel-${osmajrelease}/",
       enabled => 1,
       gpgcheck => 0,
     }
@@ -23,7 +25,7 @@ class pacemaker::install::redhat::el {
  
   }
   elsif ( $lsbmajdistrelease < 4 ) {
-    fail("pacemaker not implemented on $operatingsystem $lsbmajdistrelease")
+    fail("pacemaker not implemented on $operatingsystem $osbmajrelease")
   }
 }
 
