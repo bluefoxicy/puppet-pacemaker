@@ -17,8 +17,8 @@ class pacemaker::install::redhat {
   $pacemaker_packages =
     [
       "pacemaker",
+      "pcs",
       "resource-agents",
     ]
   $corosync_packages  = "corosync"
-
 }

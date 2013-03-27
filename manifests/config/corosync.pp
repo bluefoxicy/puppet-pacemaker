@@ -11,8 +11,6 @@ class pacemaker::config::corosync {
   $port                = $pacemaker::port
   $secauth             = $pacemaker::secauth
   $totem_threads       = $pacemaker::threads
-  $crm_config          = $pacemaker::crm_config
-  $crm_hash            = $pacemaker::crm_hash
   $corosync_template   = $pacemaker::corosync_template
 
   file { '/etc/corosync/corosync.conf':

@@ -48,7 +48,8 @@ class pacemaker(
   $secauth             = $pacemaker::params::secauth,
   $totem_threads       = $pacemaker::params::threads,
   $crm_config          = $pacemaker::params::crm_config,
-  $crm_hash            = $pacemaker::params::crm_hash,
+  $cib_config          = $pacemaker::params::cib_config,
+  $config_hash         = $pacemaker::params::config_hash,
   $corosync_template   = $pacemaker::params::corosync_template,
 ) inherits pacemaker::params {
 

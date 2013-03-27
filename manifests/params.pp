@@ -8,7 +8,8 @@ class pacemaker::params(
   $secauth             = 'on',
   $totem_threads       = '2',
   $crm_config          = undef,
-  $crm_hash            = undef,
+  $cib_config          = undef,
+  $config_hash         = undef,
   $corosync_template   = 'pacemaker/corosync/corosync.conf.erb'
 ) {
 
